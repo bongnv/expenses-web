@@ -41,10 +41,12 @@ const mutations: MutationTree<ExpensesState> = {
   }
 };
 
-export const expenses: Module<ExpensesState, StoreState> = {
+const expenses: Module<ExpensesState, StoreState> = {
   namespaced: true,
   state,
   getters,
   actions,
   mutations
 };
+
+export default expenses;
