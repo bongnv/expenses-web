@@ -13,7 +13,7 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  data: function(vm: { name: string }) {
+  data: function(vm: any) {
     return {
       rules: [(v: string) => !!v || vm.name + " is required"]
     };
