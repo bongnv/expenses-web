@@ -10,7 +10,8 @@
   >
     <template v-slot:activator="{ on }">
       <v-text-field
-        v-model="date"
+        :value="date"
+        @input="onDate"
         label="Date"
         prepend-icon="mdi-calendar"
         v-on="on"
@@ -18,7 +19,7 @@
         :rules="rules"
       ></v-text-field>
     </template>
-    <v-date-picker v-model="date" no-title scrollable />
+    <v-date-picker :value="date" @input="onDate" no-title scrollable />
   </v-menu>
 </template>
 
@@ -37,14 +38,9 @@ export default Vue.extend({
   }),
 
   computed: {
-    date: {
-      get(): string {
-        return this.value.toISOString().substr(0, 10);
-      },
-
-      set(newDate: string) {
-        this.$emit("input", new Date(newDate));
-      }
+    date: function(): string {
+      const dateObj = this.value as Date;
+      return dateObj.toISOString().substr(0, 10);
     }
   },
 
@@ -56,7 +52,14 @@ export default Vue.extend({
   },
 
   methods: {
-    onEnter() {
+    onDate: function(newDate: string) {
+      if (validateDate(newDate)) {
+        console.log("sending new date", newDate);
+        this.$emit("input", new Date(newDate));
+      }
+    },
+
+    onEnter: function() {
       this.menu = false;
     }
   }
