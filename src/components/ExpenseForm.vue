@@ -95,14 +95,15 @@ export default Vue.extend({
   },
 
   methods: {
-    reset: function() {
-      this.$refs.form.reset();
+    reset() {
+      console.log("todo");
+      // (<IForm>(this.$refs.form)).reset();
     },
 
     submit: function(expense: Expense) {
-      this.createExpense(expense).then(() => {
-        this.listExpenses();
-        this.reset();
+      this.$store.dispatch("expenses/createExpense", expense).then(() => {
+        this.$store.dispatch("expenses/listExpenses");
+        // (<IForm>this).reset();
       });
     },
     ...mapActions("expenses", ["createExpense", "listExpenses"])

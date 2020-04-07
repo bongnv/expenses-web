@@ -6,7 +6,7 @@
           <ExpenseForm style="width: 90%" />
         </v-col>
         <v-col v-if="$vuetify.breakpoint.lgAndUp" class="fill-height">
-          <TableExpenses class="fill-height" :items="expenses" />
+          <TableExpenses class="fill-height" :expenses="expenses" />
         </v-col>
       </v-row>
     </v-container>
