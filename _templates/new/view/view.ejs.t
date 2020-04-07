@@ -2,12 +2,10 @@
 to: "src/views/<%= h.changeCase.pascalCase(name) %>.vue"
 ---
 <%
-  const fileName = h.changeCase.kebab(name)
-  const importName = h.changeCase.pascal(fileName)
+  const fileName = h.changeCase.pascalCase(name)
+  const importName = h.changeCase.pascalCase(fileName)
   const titleName = h.changeCase.title(name)
-%>
-
-<template>
+%><template>
   <MainLayout>
     <%= titleName %>
   </MainLayout>
@@ -15,12 +13,13 @@ to: "src/views/<%= h.changeCase.pascalCase(name) %>.vue"
 
 <script lang="ts">
 import Vue from "vue";
+
 import MainLayout from "@/layouts/MainLayout.vue";
 
 export default Vue.extend({
-  page: {
+  metaInfo: {
     title: "<%= titleName %>",
-    meta: [{ name: "description", content: "The <%= titleName %> page." }],
+    meta: [{ name: 'description', content: 'The <%= titleName %> page.' }],
   },
   components: { MainLayout }
 });

@@ -5,7 +5,7 @@ to: "src/components/<%= h.changeCase.pascalCase(name) %>.vue"
 if (blocks.indexOf('template') !== -1) {
 %>
 <template>
-  <div />
+  <div/>
 </template>
 
 <%
@@ -18,7 +18,7 @@ import Vue from "vue";
 export default Vue.extend({
   <% if (blocks.indexOf('template') === -1) {
   %>render(h) {
-    return <div/>
+    return <div/>;
   }<% } %>
 });
 </script>

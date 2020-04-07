@@ -6,9 +6,9 @@ to: "src/utils/<%= h.changeCase.kebab(name) %>.test.ts"
   const importName = h.changeCase.camel(fileName)
 %>import <%= importName %> from "./<%= fileName %>";
 
-describe("@utils/<%= fileName %>", () => {
+describe("@/utils/<%= fileName %>", () => {
   it("says hello", () => {
     const result = <%= importName %>();
     expect(result).toEqual("hello");
-  })
-})
+  });
+});
