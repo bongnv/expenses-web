@@ -1,7 +1,7 @@
 import { createExpense, listExpenses, deleteExpense } from "@/api/expenses";
 import { Expense } from "@/models/Expense";
 import { ExpensesState, StoreState } from "@/store/types";
-import { ActionContext } from "vuex";
+import { ActionContext, Module, MutationTree } from "vuex";
 
 const state: ExpensesState = {
   expenses: []
@@ -31,7 +31,7 @@ const actions = {
   }
 };
 
-const mutations = {
+const mutations: MutationTree<ExpensesState> = {
   setExpense(state: ExpensesState, payload: Expense) {
     state.expense = payload;
   },
@@ -41,7 +41,7 @@ const mutations = {
   }
 };
 
-export default {
+export const expenses: Module<ExpensesState, StoreState> = {
   namespaced: true,
   state,
   getters,
