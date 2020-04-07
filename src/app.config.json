@@ -1,0 +1,5 @@
+{
+    "title": "Expenses Management",
+    "description": "A personal website for managing expenses.",
+    "apiServer": "http://localhost:8080/"
+}

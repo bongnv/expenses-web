@@ -6,13 +6,20 @@
   </MainLayout>
 </template>
 
-<script>
-// @ is an alias to /src
+<script lang="ts">
+import Vue from "vue";
+
+import appConfig from "@/app.config.json";
 import MainLayout from "@/layouts/MainLayout.vue";
 
-export default {
+export default Vue.extend({
+  name: "About",
+  metaInfo: {
+    title: "About",
+    meta: [{ name: "description", content: appConfig.description }]
+  },
   components: {
     MainLayout
   }
-};
+});
 </script>
