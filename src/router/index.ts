@@ -14,8 +14,8 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/expenses",
-    name: "Expenses Management",
-    component: () => import("@/views/Expenses.vue")
+    name: "edit-expense",
+    component: () => import("@/views/EditExpense.vue")
   },
   {
     path: "/about",

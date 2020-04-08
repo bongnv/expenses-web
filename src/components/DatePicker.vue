@@ -10,8 +10,7 @@
   >
     <template v-slot:activator="{ on }">
       <v-text-field
-        :value="date"
-        @input="onDate"
+        v-model="date"
         label="Date"
         prepend-icon="mdi-calendar"
         v-on="on"
@@ -19,7 +18,7 @@
         :rules="rules"
       ></v-text-field>
     </template>
-    <v-date-picker :value="date" @input="onDate" no-title scrollable />
+    <v-date-picker v-model="date" no-title scrollable />
   </v-menu>
 </template>
 
@@ -31,34 +30,34 @@ function validateDate(v: string): boolean {
 }
 
 export default Vue.extend({
-  data: () => ({
-    menu: false,
-    valid: false,
-    rules: [(v: string) => validateDate(v) || "Date is invalid."]
-  }),
+  data() {
+    return {
+      menu: false,
+      valid: false,
+      rules: [(v: string) => validateDate(v) || "Date is invalid."]
+    };
+  },
 
   computed: {
-    date: function(): string {
-      const dateObj = this.value as Date;
-      return dateObj.toISOString().substr(0, 10);
+    date: {
+      get(): any {
+        return this.value.substr(0, 10);
+      },
+
+      set(val: any) {
+        this.$emit("input", val);
+      }
     }
   },
 
   props: {
     value: {
-      type: Date,
-      default: (): Date => new Date()
+      type: String,
+      default: (): string => new Date().toISOString().substr(0, 10)
     }
   },
 
   methods: {
-    onDate: function(newDate: string) {
-      if (validateDate(newDate)) {
-        console.log("sending new date", newDate);
-        this.$emit("input", new Date(newDate));
-      }
-    },
-
     onEnter: function() {
       this.menu = false;
     }

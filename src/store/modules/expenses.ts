@@ -1,21 +1,46 @@
-import { createExpense, listExpenses, deleteExpense } from "@/api/expenses";
-import { Expense } from "@/models/Expense";
+import {
+  getExpense,
+  createExpense,
+  updateExpense,
+  listExpenses,
+  deleteExpense
+} from "@/api/expenses";
+import { Expense } from "@/models/expense";
 import { ExpensesState, StoreState } from "@/store/types";
-import { ActionContext, Module, MutationTree } from "vuex";
+import { ActionContext, Module, MutationTree, Action } from "vuex";
 
 const state: ExpensesState = {
+  expense: undefined,
   expenses: []
 };
 
 const getters = {};
 
 const actions = {
+  getExpense(context: ActionContext<ExpensesState, StoreState>, id: number) {
+    getExpense(id).then(item => {
+      context.commit("setExpense", item);
+    });
+  },
+
   createExpense(
     context: ActionContext<ExpensesState, StoreState>,
     payload: Expense
   ) {
     return new Promise(resolve => {
       createExpense(payload).then(item => {
+        context.commit("setExpense", item);
+        resolve(item);
+      });
+    });
+  },
+
+  updateExpense(
+    context: ActionContext<ExpensesState, StoreState>,
+    payload: Expense
+  ) {
+    return new Promise(resolve => {
+      updateExpense(payload).then(item => {
         context.commit("setExpense", item);
         resolve(item);
       });

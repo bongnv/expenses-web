@@ -1,9 +1,9 @@
-import Expenses from "./Expenses.vue";
+import EditExpense from "./EditExpense.vue";
 import { shallowMount, createLocalVue } from "@vue/test-utils";
 import Vuetify from "vuetify/lib";
 import Vuex from "vuex";
 
-describe("@components/Expenses", () => {
+describe("@components/EditExpenses", () => {
   it("exports a valid component", () => {
     const vuetify = new Vuetify();
     const localVue = createLocalVue();
@@ -21,7 +21,7 @@ describe("@components/Expenses", () => {
       }
     });
 
-    const wrapper = shallowMount(Expenses, {
+    const wrapper = shallowMount(EditExpense, {
       localVue,
       vuetify,
       store

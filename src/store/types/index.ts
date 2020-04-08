@@ -1,4 +1,4 @@
-import { Expense } from "@/models/Expense";
+import { Expense } from "@/models/expense";
 
 export type ExpensesState = {
   expense?: Expense;

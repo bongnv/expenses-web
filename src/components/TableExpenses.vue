@@ -15,7 +15,7 @@
     </template>
 
     <template #item.actions="{ item }">
-      <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
+      <v-icon small class="mr-2" @click="onItemClick(item)">mdi-pencil</v-icon>
       <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
     </template>
   </v-data-table>
@@ -81,9 +81,10 @@ export default Vue.extend({
   },
 
   methods: {
-    editItem(item: any) {
-      console.log(item);
+    onItemClick(item: any) {
+      this.$emit("onItemClick", item);
     },
+
     deleteItem(item: any) {
       this.$store
         .dispatch("expenses/deleteExpense", item.id)

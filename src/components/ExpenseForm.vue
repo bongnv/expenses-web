@@ -6,31 +6,31 @@
       :lazy-validation="lazy"
       class="justify-center"
     >
-      <DatePicker v-model="expense.date" />
+      <DatePicker v-model="date" />
 
       <SimpleDropdown
-        v-model="expense.currency"
+        v-model="currency"
         name="Currency"
         :items="currencies"
       ></SimpleDropdown>
       <SimpleDropdown
-        v-model="expense.category"
+        v-model="category"
         name="Category"
         :items="categories"
       ></SimpleDropdown>
       <v-text-field
-        v-model.number="expense.amount"
+        v-model.number="amount"
         :counter="amountLength"
         :rules="amountRules"
         label="Amount"
         required
         placeholder="0"
         type="number"
-        @keyup.enter="submit(expense)"
+        @keyup.enter="submit"
       ></v-text-field>
 
       <v-text-field
-        v-model="expense.note"
+        v-model="note"
         :counter="noteLength"
         :rules="noteRules"
         label="Note"
@@ -39,11 +39,7 @@
 
       <v-row>
         <v-spacer />
-        <v-btn
-          :disabled="!valid"
-          class="ma-4"
-          color="success"
-          @click="submit(expense)"
+        <v-btn :disabled="!valid" class="ma-4" color="success" @click="submit"
           >Submit</v-btn
         >
         <v-spacer />
@@ -62,51 +58,120 @@ import SimpleDropdown from "@/components/SimpleDropdown.vue";
 import DatePicker from "@/components/DatePicker.vue";
 import categories from "@/data/categories.json";
 import currencies from "@/data/currencies.json";
-import { Expense } from "@/models/Expense";
+import { Expense, defaultExpense } from "@/models/expense";
+
+const NOTE_LENGTH = 64;
 
 // data, amount, category, account, note, currency, category group
 export default Vue.extend({
-  data: (vm: any) => ({
-    expense: {
-      date: new Date(),
-      currency: "SGD"
+  data() {
+    return {
+      valid: true,
+      noteLength: NOTE_LENGTH,
+      noteRules: [
+        (v: string) =>
+          !v ||
+          v.length <= NOTE_LENGTH ||
+          "Note must not be more than " + NOTE_LENGTH + " characters"
+      ],
+      amountLength: 20,
+      amountRules: [
+        (v: number) => !!v || "Amount is required",
+        (v: number) => v > 0 || "Amount must be valid"
+      ],
+      categories,
+      currencies,
+      lazy: false
+    };
+  },
+
+  computed: {
+    date: {
+      get(): string {
+        return this.value.date;
+      },
+      set(date: string) {
+        const newExpense = {
+          ...this.value,
+          date
+        };
+        this.$emit("input", newExpense);
+      }
     },
-    valid: true,
-    noteLength: 64,
-    noteRules: [
-      (v: string) =>
-        !v ||
-        v.length <= vm.noteLength ||
-        "Note must not be more than " + vm.noteLength + " characters"
-    ],
-    amountLength: 20,
-    amountRules: [
-      (v: number) => !!v || "Amount is required",
-      (v: number) => v > 0 || "Amount must be valid"
-    ],
-    categories,
-    currencies,
-    lazy: false
-  }),
+
+    currency: {
+      get(): string {
+        return this.value.currency;
+      },
+      set(currency: string) {
+        const newExpense = {
+          ...this.value,
+          currency
+        };
+        this.$emit("input", newExpense);
+      }
+    },
+
+    category: {
+      get(): string {
+        return this.value.category;
+      },
+      set(category: string) {
+        const newExpense = {
+          ...this.value,
+          category
+        };
+        this.$emit("input", newExpense);
+      }
+    },
+
+    amount: {
+      get(): number {
+        return this.value.amount;
+      },
+      set(amount: number) {
+        const newExpense = {
+          ...this.value,
+          amount
+        };
+        this.$emit("input", newExpense);
+      }
+    },
+
+    note: {
+      get(): string {
+        return this.value.note;
+      },
+      set(note: string) {
+        const newExpense = {
+          ...this.value,
+          note
+        };
+        this.$emit("input", newExpense);
+      }
+    }
+  },
+
+  props: {
+    value: {
+      type: Object,
+      default: () => defaultExpense()
+    }
+  },
+
+  methods: {
+    submit() {
+      this.$emit("submit", this.value);
+    },
+    reset() {
+      const defaultVal = defaultExpense();
+      this.$emit("input", defaultVal);
+    }
+  },
 
   components: {
     SimpleDropdown,
     DatePicker
-  },
-
-  methods: {
-    reset() {
-      console.log("todo");
-      // (<IForm>(this.$refs.form)).reset();
-    },
-
-    submit: function(expense: Expense) {
-      this.$store.dispatch("expenses/createExpense", expense).then(() => {
-        this.$store.dispatch("expenses/listExpenses");
-        // (<IForm>this).reset();
-      });
-    },
-    ...mapActions("expenses", ["createExpense", "listExpenses"])
   }
 });
 </script>
