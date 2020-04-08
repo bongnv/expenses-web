@@ -1,13 +1,13 @@
 export type Expense = {
   id: number;
-  date: string;
+  date: Date;
   currency: string;
 };
 
 export function defaultExpense(): Expense {
   return {
     id: 0,
-    date: new Date().toISOString().substr(0, 10),
+    date: new Date(),
     currency: "SGD"
   };
 }

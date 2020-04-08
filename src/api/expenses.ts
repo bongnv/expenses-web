@@ -2,11 +2,13 @@ import axios, { AxiosResponse } from "axios";
 
 import appConfig from "@/app.config.json";
 import { Expense } from "@/models/expense";
+import { parseDate } from "@/utils/date-utils";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 function concertExpense(remoteExpense: any): Expense {
   return {
     ...remoteExpense,
-    date: remoteExpense.date.substr(0, 10)
+    date: parseDate(remoteExpense.date)
   };
 }
 

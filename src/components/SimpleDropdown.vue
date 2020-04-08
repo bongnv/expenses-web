@@ -2,7 +2,7 @@
   <v-autocomplete
     :value="value"
     :items="items"
-    :rules="rules"
+    :rules="rules(name)"
     :label="name"
     required
     @input="$emit('input', $event)"
@@ -12,10 +12,13 @@
 <script lang="ts">
 import Vue from "vue";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export default Vue.extend({
-  data: function(vm: any) {
+  data() {
     return {
-      rules: [(v: string) => !!v || vm.name + " is required"]
+      rules(name: string) {
+        return [(v: string) => !!v || name + " is required"];
+      }
     };
   },
 

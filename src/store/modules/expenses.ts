@@ -7,7 +7,7 @@ import {
 } from "@/api/expenses";
 import { Expense } from "@/models/expense";
 import { ExpensesState, StoreState } from "@/store/types";
-import { ActionContext, Module, MutationTree, Action } from "vuex";
+import { ActionContext, Module, MutationTree } from "vuex";
 
 const state: ExpensesState = {
   expense: undefined,

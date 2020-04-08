@@ -27,9 +27,9 @@ import Vue from "vue";
 import { Expense } from "@/models/expense";
 import MainLayout from "@/layouts/MainLayout.vue";
 import ExpenseForm from "@/components/ExpenseForm.vue";
-import router from "@/router";
 import TableExpenses from "@/components/TableExpenses.vue";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export default Vue.extend({
   name: "Home",
 

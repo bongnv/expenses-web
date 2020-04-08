@@ -25,6 +25,8 @@
 <script lang="ts">
 import Vue from "vue";
 
+import { formatDate, parseDate } from "@/utils/date-utils";
+
 function validateDate(v: string): boolean {
   return !isNaN(Date.parse(v)) && v.length == 10;
 }
@@ -40,20 +42,23 @@ export default Vue.extend({
 
   computed: {
     date: {
-      get(): any {
-        return this.value.substr(0, 10);
+      get(): string {
+        return formatDate(this.value);
       },
 
-      set(val: any) {
-        this.$emit("input", val);
+      set(val: string) {
+        const d = parseDate(val);
+        if (d) {
+          this.$emit("input", val);
+        }
       }
     }
   },
 
   props: {
     value: {
-      type: String,
-      default: (): string => new Date().toISOString().substr(0, 10)
+      type: Date,
+      default: (): Date => new Date()
     }
   },
 

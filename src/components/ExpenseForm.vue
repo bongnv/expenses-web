@@ -52,18 +52,29 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { mapActions } from "vuex";
 
 import SimpleDropdown from "@/components/SimpleDropdown.vue";
 import DatePicker from "@/components/DatePicker.vue";
 import categories from "@/data/categories.json";
 import currencies from "@/data/currencies.json";
-import { Expense, defaultExpense } from "@/models/expense";
+import { defaultExpense } from "@/models/expense";
 
 const NOTE_LENGTH = 64;
 
 // data, amount, category, account, note, currency, category group
 export default Vue.extend({
+  components: {
+    SimpleDropdown,
+    DatePicker
+  },
+
+  props: {
+    value: {
+      type: Object,
+      default: () => defaultExpense()
+    }
+  },
+
   data() {
     return {
       valid: true,
@@ -86,27 +97,14 @@ export default Vue.extend({
   },
 
   computed: {
-    date: {
-      get(): string {
-        return this.value.date;
+    amount: {
+      get(): number {
+        return this.value.amount;
       },
-      set(date: string) {
+      set(amount: number) {
         const newExpense = {
           ...this.value,
-          date
-        };
-        this.$emit("input", newExpense);
-      }
-    },
-
-    currency: {
-      get(): string {
-        return this.value.currency;
-      },
-      set(currency: string) {
-        const newExpense = {
-          ...this.value,
-          currency
+          amount
         };
         this.$emit("input", newExpense);
       }
@@ -125,14 +123,27 @@ export default Vue.extend({
       }
     },
 
-    amount: {
-      get(): number {
-        return this.value.amount;
+    currency: {
+      get(): string {
+        return this.value.currency;
       },
-      set(amount: number) {
+      set(currency: string) {
         const newExpense = {
           ...this.value,
-          amount
+          currency
+        };
+        this.$emit("input", newExpense);
+      }
+    },
+
+    date: {
+      get(): Date {
+        return this.value.date;
+      },
+      set(date: Date) {
+        const newExpense = {
+          ...this.value,
+          date
         };
         this.$emit("input", newExpense);
       }
@@ -152,13 +163,6 @@ export default Vue.extend({
     }
   },
 
-  props: {
-    value: {
-      type: Object,
-      default: () => defaultExpense()
-    }
-  },
-
   methods: {
     submit() {
       this.$emit("submit", this.value);
@@ -167,11 +171,6 @@ export default Vue.extend({
       const defaultVal = defaultExpense();
       this.$emit("input", defaultVal);
     }
-  },
-
-  components: {
-    SimpleDropdown,
-    DatePicker
   }
 });
 </script>

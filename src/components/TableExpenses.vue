@@ -25,31 +25,14 @@
 import Vue from "vue";
 
 import categories from "@/data/categories.json";
+import { beautyFormatDate } from "@/utils/date-utils";
+import type { Expense } from "@/models/expense";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const iconMap = categories.reduce(function(map: any, obj: any) {
   map[obj.value] = obj.icon;
   return map;
 }, {});
-
-const months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec"
-];
-
-const formatDate = (date: string): string => {
-  const obj = new Date(date);
-  return obj.getDate() + "-" + months[obj.getMonth()] + "-" + obj.getFullYear();
-};
 
 const formatAmount = (item: any) => item.currency + " " + item.amount;
 
@@ -71,11 +54,11 @@ export default Vue.extend({
 
   computed: {
     computedItems() {
-      return this.expenses.filter(Boolean).map((item: any) => ({
+      return this.expenses.filter(Boolean).map((item: Expense) => ({
         ...item,
         amount: formatAmount(item),
         icon: iconMap[item.category],
-        date: formatDate(item.date)
+        date: beautyFormatDate(item.date)
       }));
     }
   },
