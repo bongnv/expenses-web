@@ -26,7 +26,6 @@ import Vue from "vue";
 
 import categories from "@/data/categories.json";
 import { beautyFormatDate } from "@/utils/date-utils";
-import type { Expense } from "@/models/expense";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const iconMap = categories.reduce(function(map: any, obj: any) {
@@ -54,7 +53,7 @@ export default Vue.extend({
 
   computed: {
     computedItems() {
-      return this.expenses.filter(Boolean).map((item: Expense) => ({
+      return this.expenses.filter(Boolean).map((item: any) => ({
         ...item,
         amount: formatAmount(item),
         icon: iconMap[item.category],

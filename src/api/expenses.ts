@@ -5,7 +5,7 @@ import { Expense } from "@/models/expense";
 import { parseDate } from "@/utils/date-utils";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-function concertExpense(remoteExpense: any): Expense {
+function convertExpense(remoteExpense: any): Expense {
   return {
     ...remoteExpense,
     date: parseDate(remoteExpense.date)
@@ -13,11 +13,11 @@ function concertExpense(remoteExpense: any): Expense {
 }
 
 function parseGetExpense(response: AxiosResponse<any>): Expense {
-  return concertExpense(response.data.expense);
+  return convertExpense(response.data.expense);
 }
 
 function parserListExpenses(response: AxiosResponse<any>): Array<Expense> {
-  return response.data.expenses.map(concertExpense);
+  return response.data.expenses.map(convertExpense);
 }
 
 export function getExpense(id: number) {
@@ -46,7 +46,7 @@ export function updateExpense(payload: Expense) {
       .put(appConfig.apiServer + "expenses/" + payload.id, {
         expense: payload
       })
-      .then(response => resolve(response.data.expense))
+      .then(response => resolve(parseGetExpense(response)))
       .catch(error => reject(error));
   });
 }

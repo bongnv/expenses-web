@@ -1,13 +1,15 @@
 export type Expense = {
   id: number;
   date: Date;
+  category: string;
   currency: string;
 };
 
 export function defaultExpense(): Expense {
   return {
     id: 0,
-    date: new Date(),
-    currency: "SGD"
+    category: "",
+    currency: "SGD",
+    date: new Date()
   };
 }

@@ -27,7 +27,7 @@ import Vue from "vue";
 
 import { formatDate, parseDate } from "@/utils/date-utils";
 
-function validateDate(v: string): boolean {
+function isValidDate(v: string): boolean {
   return !isNaN(Date.parse(v)) && v.length == 10;
 }
 
@@ -36,20 +36,22 @@ export default Vue.extend({
     return {
       menu: false,
       valid: false,
-      rules: [(v: string) => validateDate(v) || "Date is invalid."]
+      rules: [(v: string) => isValidDate(v) || "Date is invalid."]
     };
   },
 
   computed: {
     date: {
       get(): string {
-        return formatDate(this.value);
+        return formatDate(this.value as Date);
       },
 
       set(val: string) {
-        const d = parseDate(val);
-        if (d) {
-          this.$emit("input", val);
+        if (isValidDate(val)) {
+          const d = parseDate(val);
+          if (d) {
+            this.$emit("input", d);
+          }
         }
       }
     }

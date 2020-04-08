@@ -30,7 +30,10 @@
       "dom",
       "dom.iterable",
       "scripthost"
-    ]
+    ],
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
   "include": [
     "src/**/*.ts",

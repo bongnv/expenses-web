@@ -33,10 +33,15 @@ import TableExpenses from "@/components/TableExpenses.vue";
 export default Vue.extend({
   name: "Home",
 
+  components: {
+    MainLayout,
+    ExpenseForm,
+    TableExpenses
+  },
+
   computed: {
     expense: {
       get(): any {
-        console.log("getting expense", this.$store.state.expenses.expense);
         return this.$store.state.expenses.expense;
       },
 
@@ -50,15 +55,13 @@ export default Vue.extend({
     }
   },
 
-  components: {
-    MainLayout,
-    ExpenseForm,
-    TableExpenses
+  mounted() {
+    this.$store.dispatch("expenses/listExpenses");
   },
 
   methods: {
-    reset() {
-      console.log("reset");
+    editExpense(expense: Expense) {
+      this.$store.dispatch("expenses/getExpense", expense.id);
     },
 
     submit(expense: any) {
@@ -70,18 +73,9 @@ export default Vue.extend({
       } else {
         this.$store.dispatch("expenses/createExpense", expense).then(() => {
           this.$store.dispatch("expenses/listExpenses");
-          this.reset();
         });
       }
-    },
-
-    editExpense(expense: Expense) {
-      this.$store.dispatch("expenses/getExpense", expense.id);
     }
-  },
-
-  mounted() {
-    this.$store.dispatch("expenses/listExpenses");
   }
 });
 </script>
