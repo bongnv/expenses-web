@@ -7,12 +7,22 @@
       class="justify-center"
     >
       <DatePicker v-model="date" />
-
-      <SimpleDropdown
-        v-model="currency"
-        name="Currency"
-        :items="currencies"
-      ></SimpleDropdown>
+      <v-row>
+        <v-col cols="8">
+          <SimpleDropdown
+            v-model="account"
+            name="Account"
+            :items="accounts"
+          ></SimpleDropdown>
+        </v-col>
+        <v-col cols="4">
+          <SimpleDropdown
+            v-model="currency"
+            name="Currency"
+            :items="currencies"
+          ></SimpleDropdown>
+        </v-col>
+      </v-row>
       <SimpleDropdown
         v-model="category"
         name="Category"
@@ -53,11 +63,15 @@
 <script lang="ts">
 import Vue from "vue";
 
-import SimpleDropdown from "@/components/SimpleDropdown.vue";
-import DatePicker from "@/components/DatePicker.vue";
+import accounts from "@/data/accounts.json";
 import categories from "@/data/categories.json";
 import currencies from "@/data/currencies.json";
+
 import { defaultExpense } from "@/models/expense";
+import { preferredCurrency } from "@/utils/currency-utils";
+
+import SimpleDropdown from "@/components/SimpleDropdown.vue";
+import DatePicker from "@/components/DatePicker.vue";
 
 const NOTE_LENGTH = 64;
 
@@ -90,6 +104,7 @@ export default Vue.extend({
         (v: number) => !!v || "Amount is required",
         (v: number) => v > 0 || "Amount must be valid"
       ],
+      accounts,
       categories,
       currencies,
       lazy: false
@@ -97,6 +112,21 @@ export default Vue.extend({
   },
 
   computed: {
+    account: {
+      get(): string {
+        return this.value.account;
+      },
+      set(account: string) {
+        const currency = preferredCurrency(account);
+        const newExpense = {
+          ...this.value,
+          account,
+          currency
+        };
+        this.$emit("input", newExpense);
+      }
+    },
+
     amount: {
       get(): number {
         return this.value.amount;

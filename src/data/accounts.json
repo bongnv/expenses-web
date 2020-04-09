@@ -1,0 +1,47 @@
+[
+  {
+    "text": "Bong UOB",
+    "value": "BONG_UOB",
+    "currency": "SGD"
+  },
+  {
+    "text": "Hien UOB",
+    "value": "HIEN_UOB",
+    "currency": "SGD"
+  },
+  {
+    "text": "Bong OCBC 360",
+    "value": "BONG_OCBC_360",
+    "currency": "SGD"
+  },
+  {
+    "text": "Bong FRANK Credit",
+    "value": "BONG_FRANK_CREDIT",
+    "currency": "SGD"
+  },
+  {
+    "text": "Bong Grab Credit",
+    "value": "BONG_GRAB",
+    "currency": "SGD"
+  },
+  {
+    "text": "Hien Grab Credit",
+    "value": "HIEN_GRAB",
+    "currency": "SGD"
+  },
+  {
+    "text": "Hien Timo",
+    "value": "HIEN_TIMO",
+    "currency": "VND"
+  },
+  {
+    "text": "Hien Techcombank",
+    "value": "HIEN_TECHCOMBANK",
+    "currency": "VND"
+  },
+  {
+    "text": "Bong Timo",
+    "value": "BONG_TIMO",
+    "currency": "VND"
+  }
+]
