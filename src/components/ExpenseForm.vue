@@ -72,7 +72,7 @@ import categories from "@/data/categories.json";
 import currencies from "@/data/currencies.json";
 
 import { defaultExpense } from "@/models/expense";
-import { preferredCurrency } from "@/utils/currency-utils";
+import { preferredCurrency } from "@/utils/account-utils";
 
 import SimpleDropdown from "@/components/SimpleDropdown.vue";
 import DatePicker from "@/components/DatePicker.vue";

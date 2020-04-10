@@ -26,6 +26,7 @@ import Vue from "vue";
 
 import categories from "@/data/categories.json";
 import { beautyFormatDate } from "@/utils/date-utils";
+import { getDisplayName } from "@/utils/account-utils";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const iconMap = categories.reduce(function(map: any, obj: any) {
@@ -47,6 +48,7 @@ export default Vue.extend({
         value: "amount"
       },
       { text: "Date", value: "date" },
+      { text: "Account", value: "account" },
       { text: "Actions", value: "actions" }
     ]
   }),
@@ -57,7 +59,8 @@ export default Vue.extend({
         ...item,
         amount: formatAmount(item),
         icon: iconMap[item.category],
-        date: beautyFormatDate(item.date)
+        date: beautyFormatDate(item.date),
+        account: getDisplayName(item.account)
       }));
     }
   },
