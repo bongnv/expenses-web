@@ -83,9 +83,14 @@ export default Vue.extend({
       drawer: null,
       items: [
         {
+          icon: "mdi-table-large",
+          text: "Overview",
+          link: "/overview"
+        },
+        {
           icon: "mdi-wallet",
           text: "Expenses",
-          link: "/expenses"
+          link: "/expenses/edit"
         },
         { icon: "mdi-history", text: "Frequently contacted" },
         { icon: "mdi-content-copy", text: "Duplicates" },

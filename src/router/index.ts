@@ -13,9 +13,14 @@ const routes: Array<RouteConfig> = [
     component: Home
   },
   {
-    path: "/expenses",
+    path: "/expenses/edit",
     name: "edit-expense",
     component: () => import("@/views/EditExpense.vue")
+  },
+  {
+    path: "/overview",
+    name: "overview",
+    component: () => import("@/views/Overview.vue")
   },
   {
     path: "/about",
