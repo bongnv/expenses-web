@@ -14,5 +14,8 @@ describe("@/components/ExpenseForm", () => {
     });
 
     expect(wrapper.contains(DatePicker)).toBe(true);
+    const saveBtn = wrapper.find("v-btn-stub");
+    expect(saveBtn.exists()).toBeTruthy();
+    expect(saveBtn.text()).toEqual("Create");
   });
 });

@@ -49,11 +49,15 @@
 
       <v-row>
         <v-spacer />
-        <v-btn :disabled="!valid" class="ma-4" color="success" @click="submit"
-          >Submit</v-btn
+        <v-btn
+          :disabled="!valid"
+          class="ma-4"
+          color="success"
+          @click="submit"
+          >{{ isNew ? "Create" : "Save" }}</v-btn
         >
         <v-spacer />
-        <v-btn color="error" class="ma-4" @click="reset">Reset Form</v-btn>
+        <v-btn color="error" class="ma-4" @click="reset">Reset</v-btn>
         <v-spacer />
       </v-row>
     </v-form>
@@ -190,6 +194,10 @@ export default Vue.extend({
         };
         this.$emit("input", newExpense);
       }
+    },
+
+    isNew(): boolean {
+      return this.value.id === 0;
     }
   },
 
