@@ -1,9 +1,7 @@
 <template>
   <v-data-table
-    v-model="selected"
     :headers="headers"
     :items="items"
-    :single-select="singleSelect"
     item-key="name"
     class="elevation-1"
     disable-sort

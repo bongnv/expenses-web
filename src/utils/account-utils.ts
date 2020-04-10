@@ -1,5 +1,6 @@
 import accounts from "@/data/accounts.json";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const accountMap = accounts.reduce((map: Record<string, any>, obj) => {
   map[obj.value] = obj;
   return map;
