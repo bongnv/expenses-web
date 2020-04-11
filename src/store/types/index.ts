@@ -1,10 +1,11 @@
-import { Expense } from "@/models/expense";
+import { Expense, MonthlyExpense } from "@/models/expense";
 
-export type ExpensesState = {
+export interface ExpensesState {
   expense?: Expense;
-  expenses: Array<Expense>;
-};
+  expenses: Expense[];
+  monthlyExpenses: MonthlyExpense[];
+}
 
-export type StoreState = {
+export interface RootState {
   expenses: ExpensesState;
-};
+}

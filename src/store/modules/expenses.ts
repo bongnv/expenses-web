@@ -1,74 +1,74 @@
-import {
-  getExpense,
-  createExpense,
-  updateExpense,
-  listExpenses,
-  deleteExpense
-} from "@/api/expenses";
-import { Expense } from "@/models/expense";
-import { ExpensesState, StoreState } from "@/store/types";
 import { ActionContext, Module, MutationTree } from "vuex";
+
+import * as api from "@/api/expenses";
+import { Expense, MonthlyExpense } from "@/models/expense";
+import { ExpensesState, RootState } from "@/store/types";
 
 const state: ExpensesState = {
   expense: undefined,
-  expenses: []
+  expenses: [],
+  monthlyExpenses: []
 };
 
 const getters = {};
 
 const actions = {
-  getExpense(context: ActionContext<ExpensesState, StoreState>, id: number) {
-    getExpense(id).then(item => {
+  getExpense(context: ActionContext<ExpensesState, RootState>, id: number) {
+    api.getExpense(id).then(item => {
       context.commit("setExpense", item);
     });
   },
 
   createExpense(
-    context: ActionContext<ExpensesState, StoreState>,
+    context: ActionContext<ExpensesState, RootState>,
     payload: Expense
   ) {
-    return new Promise(resolve => {
-      createExpense(payload).then(item => {
-        context.commit("setExpense", item);
-        resolve(item);
-      });
+    api.createExpense(payload).then(item => {
+      context.commit("setExpense", item);
     });
   },
 
   updateExpense(
-    context: ActionContext<ExpensesState, StoreState>,
+    context: ActionContext<ExpensesState, RootState>,
     payload: Expense
   ) {
-    return new Promise(resolve => {
-      updateExpense(payload).then(item => {
-        context.commit("setExpense", item);
-        resolve(item);
-      });
+    api.updateExpense(payload).then(item => {
+      context.commit("setExpense", item);
     });
   },
 
-  listExpenses(context: ActionContext<ExpensesState, StoreState>) {
-    listExpenses().then(items => context.commit("setExpenses", items));
+  listExpenses(context: ActionContext<ExpensesState, RootState>) {
+    api.listExpenses().then(items => {
+      context.commit("setExpenses", items);
+    });
   },
 
-  deleteExpense(_: ActionContext<ExpensesState, StoreState>, id: number) {
-    return deleteExpense(id);
+  deleteExpense(_: ActionContext<ExpensesState, RootState>, id: number) {
+    api.deleteExpense(id);
+  },
+
+  getOverview(context: ActionContext<ExpensesState, RootState>) {
+    api.getOverview().then((monthlyExpenses: MonthlyExpense[]) => {
+      context.commit("setMonthlyExpenses", monthlyExpenses);
+    });
   }
 };
 
-/* eslint-disable no-param-reassign */
 const mutations: MutationTree<ExpensesState> = {
   setExpense(expenseState: ExpensesState, payload: Expense) {
     expenseState.expense = payload;
   },
 
-  setExpenses(expenseState: ExpensesState, payload: Array<Expense>) {
+  setExpenses(expenseState: ExpensesState, payload: Expense[]) {
     expenseState.expenses = payload;
+  },
+
+  setMonthlyExpenses(expenseState: ExpensesState, payload: MonthlyExpense[]) {
+    expenseState.monthlyExpenses = payload;
   }
 };
-/* eslint-enable no-param-reassign */
 
-const expenses: Module<ExpensesState, StoreState> = {
+const expenses: Module<ExpensesState, RootState> = {
   namespaced: true,
   state,
   getters,

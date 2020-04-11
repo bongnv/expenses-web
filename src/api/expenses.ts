@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 
 import appConfig from "@/app.config.json";
-import { Expense } from "@/models/expense";
+import { Expense, MonthlyExpense } from "@/models/expense";
 import { parseDate } from "@/utils/date-utils";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -16,11 +16,15 @@ function parseGetExpense(response: AxiosResponse<any>): Expense {
   return convertExpense(response.data.expense);
 }
 
-function parserListExpenses(response: AxiosResponse<any>): Array<Expense> {
+function parserListExpenses(response: AxiosResponse<any>): Expense[] {
   return response.data.expenses.map(convertExpense);
 }
 
-export function getExpense(id: number) {
+function parseGetOverview(response: AxiosResponse<any>): MonthlyExpense[] {
+  return response.data.data;
+}
+
+export function getExpense(id: number): Promise<Expense> {
   return new Promise((resolve, reject) => {
     axios
       .get(`${appConfig.apiServer}expenses/${id}`)
@@ -29,7 +33,7 @@ export function getExpense(id: number) {
   });
 }
 
-export function createExpense(payload: Expense) {
+export function createExpense(payload: Expense): Promise<Expense> {
   return new Promise((resolve, reject) => {
     axios
       .post(`${appConfig.apiServer}expenses`, {
@@ -40,7 +44,7 @@ export function createExpense(payload: Expense) {
   });
 }
 
-export function updateExpense(payload: Expense) {
+export function updateExpense(payload: Expense): Promise<Expense> {
   return new Promise((resolve, reject) => {
     axios
       .put(`${appConfig.apiServer}expenses/${payload.id}`, {
@@ -51,7 +55,7 @@ export function updateExpense(payload: Expense) {
   });
 }
 
-export function listExpenses() {
+export function listExpenses(): Promise<Expense[]> {
   return new Promise((resolve, reject) => {
     axios
       .get(`${appConfig.apiServer}expenses`)
@@ -60,6 +64,15 @@ export function listExpenses() {
   });
 }
 
-export function deleteExpense(id: number) {
+export function deleteExpense(id: number): Promise<void> {
   return axios.delete(`${appConfig.apiServer}expenses/${id}`);
+}
+
+export function getOverview(): Promise<MonthlyExpense[]> {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${appConfig.apiServer}expenses-overview`)
+      .then(response => resolve(parseGetOverview(response)))
+      .catch(error => reject(error));
+  });
 }
