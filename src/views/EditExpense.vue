@@ -4,8 +4,8 @@
       <v-row class="fill-height" no-gutters>
         <v-col>
           <ExpenseForm
-            style="width: 90%"
             v-model="expense"
+            style="width: 90%"
             @submit="submit(expense)"
           />
         </v-col>

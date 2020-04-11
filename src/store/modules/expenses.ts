@@ -56,15 +56,17 @@ const actions = {
   }
 };
 
+/* eslint-disable no-param-reassign */
 const mutations: MutationTree<ExpensesState> = {
-  setExpense(state: ExpensesState, payload: Expense) {
-    state.expense = payload;
+  setExpense(expenseState: ExpensesState, payload: Expense) {
+    expenseState.expense = payload;
   },
 
-  setExpenses(state: ExpensesState, payload: Array<Expense>) {
-    state.expenses = payload;
+  setExpenses(expenseState: ExpensesState, payload: Array<Expense>) {
+    expenseState.expenses = payload;
   }
 };
+/* eslint-enable no-param-reassign */
 
 const expenses: Module<ExpensesState, StoreState> = {
   namespaced: true,

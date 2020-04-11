@@ -13,9 +13,9 @@
         v-model="date"
         label="Date"
         prepend-icon="mdi-calendar"
+        :rules="rules"
         v-on="on"
         @keyup.enter="onEnter"
-        :rules="rules"
       ></v-text-field>
     </template>
     <v-date-picker v-model="date" no-title scrollable />
@@ -28,10 +28,17 @@ import Vue from "vue";
 import { formatDate, parseDate } from "@/utils/date-utils";
 
 function isValidDate(v: string): boolean {
-  return !isNaN(Date.parse(v)) && v.length == 10;
+  return !Number.isNaN(Date.parse(v)) && v.length === 10;
 }
 
 export default Vue.extend({
+  props: {
+    value: {
+      type: Date,
+      default: (): Date => new Date()
+    }
+  },
+
   data() {
     return {
       menu: false,
@@ -57,15 +64,8 @@ export default Vue.extend({
     }
   },
 
-  props: {
-    value: {
-      type: Date,
-      default: (): Date => new Date()
-    }
-  },
-
   methods: {
-    onEnter: function() {
+    onEnter() {
       this.menu = false;
     }
   }

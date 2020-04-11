@@ -101,7 +101,7 @@ export default Vue.extend({
         (v: string) =>
           !v ||
           v.length <= NOTE_LENGTH ||
-          "Note must not be more than " + NOTE_LENGTH + " characters"
+          `Note must not be more than ${NOTE_LENGTH} characters`
       ],
       amountLength: 20,
       amountRules: [

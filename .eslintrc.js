@@ -4,7 +4,8 @@ module.exports = {
     node: true
   },
   extends: [
-    "plugin:vue/essential",
+    "plugin:vue/recommended",
+    "@vue/airbnb",
     "eslint:recommended",
     "@vue/typescript/recommended",
     "@vue/prettier",
@@ -20,6 +21,12 @@ module.exports = {
   overrides: [
     {
       files: ["**/*.test.ts"],
+      rules: {
+        "import/no-extraneous-dependencies": [
+          "error",
+          { devDependencies: true }
+        ]
+      },
       env: {
         jest: true
       }

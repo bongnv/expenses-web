@@ -1,7 +1,8 @@
-import ExpenseForm from "./ExpenseForm.vue";
-import DatePicker from "./DatePicker.vue";
 import { shallowMount, createLocalVue } from "@vue/test-utils";
 import Vuetify from "vuetify/lib";
+
+import ExpenseForm from "./ExpenseForm.vue";
+import DatePicker from "./DatePicker.vue";
 
 describe("@/components/ExpenseForm", () => {
   it("exports a valid component", () => {

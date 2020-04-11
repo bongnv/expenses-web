@@ -1,7 +1,8 @@
-import EditExpense from "./EditExpense.vue";
 import { shallowMount, createLocalVue } from "@vue/test-utils";
 import Vuetify from "vuetify/lib";
 import Vuex from "vuex";
+
+import EditExpense from "./EditExpense.vue";
 
 describe("@components/EditExpenses", () => {
   it("exports a valid component", () => {

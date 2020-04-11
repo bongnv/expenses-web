@@ -1,5 +1,6 @@
-import ExpenseOverview from "./ExpenseOverview.vue";
 import { shallowMount } from "@vue/test-utils";
+
+import ExpenseOverview from "./ExpenseOverview.vue";
 
 describe("@components/ExpenseOverview", () => {
   it("exports a valid component", () => {

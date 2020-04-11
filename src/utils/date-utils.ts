@@ -4,7 +4,7 @@ export function formatDate(d: Date): string {
 
 export function parseDate(d: string): Date | undefined {
   const dateObj = new Date(d);
-  if (isNaN(dateObj.getTime())) {
+  if (Number.isNaN(dateObj.getTime())) {
     return undefined;
   }
 
@@ -27,5 +27,5 @@ const months = [
 ];
 
 export function beautyFormatDate(d: Date): string {
-  return d.getDate() + "-" + months[d.getMonth()] + "-" + d.getFullYear();
+  return `${d.getDate()}-${months[d.getMonth()]}-${d.getFullYear()}`;
 }

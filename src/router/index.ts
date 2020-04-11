@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import Home from "../views/Home.vue";
 import VueMeta from "vue-meta";
+
+import Home from "../views/Home.vue";
 
 Vue.use(VueMeta);
 Vue.use(VueRouter);

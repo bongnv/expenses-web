@@ -14,18 +14,26 @@ import Vue from "vue";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export default Vue.extend({
+  props: {
+    name: {
+      type: String,
+      default: ""
+    },
+    items: {
+      type: Array,
+      default: () => []
+    },
+    value: {
+      type: String,
+      default: ""
+    }
+  },
   data() {
     return {
       rules(name: string) {
-        return [(v: string) => !!v || name + " is required"];
+        return [(v: string) => !!v || `${name} is required`];
       }
     };
-  },
-
-  props: {
-    name: String,
-    items: Array,
-    value: String
   }
 });
 </script>

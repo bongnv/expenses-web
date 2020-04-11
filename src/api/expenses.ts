@@ -23,7 +23,7 @@ function parserListExpenses(response: AxiosResponse<any>): Array<Expense> {
 export function getExpense(id: number) {
   return new Promise((resolve, reject) => {
     axios
-      .get(appConfig.apiServer + "expenses/" + id)
+      .get(`${appConfig.apiServer}expenses/${id}`)
       .then(response => resolve(parseGetExpense(response)))
       .catch(error => reject(error));
   });
@@ -32,7 +32,7 @@ export function getExpense(id: number) {
 export function createExpense(payload: Expense) {
   return new Promise((resolve, reject) => {
     axios
-      .post(appConfig.apiServer + "expenses", {
+      .post(`${appConfig.apiServer}expenses`, {
         expense: payload
       })
       .then(response => resolve(parseGetExpense(response)))
@@ -43,7 +43,7 @@ export function createExpense(payload: Expense) {
 export function updateExpense(payload: Expense) {
   return new Promise((resolve, reject) => {
     axios
-      .put(appConfig.apiServer + "expenses/" + payload.id, {
+      .put(`${appConfig.apiServer}expenses/${payload.id}`, {
         expense: payload
       })
       .then(response => resolve(parseGetExpense(response)))
@@ -54,12 +54,12 @@ export function updateExpense(payload: Expense) {
 export function listExpenses() {
   return new Promise((resolve, reject) => {
     axios
-      .get(appConfig.apiServer + "expenses")
+      .get(`${appConfig.apiServer}expenses`)
       .then(response => resolve(parserListExpenses(response)))
       .catch(error => reject(error));
   });
 }
 
 export function deleteExpense(id: number) {
-  return axios.delete(appConfig.apiServer + "expenses/" + id);
+  return axios.delete(`${appConfig.apiServer}expenses/${id}`);
 }

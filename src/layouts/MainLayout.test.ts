@@ -1,6 +1,7 @@
 import { shallowMount, createLocalVue } from "@vue/test-utils";
-import MainLayout from "./MainLayout.vue";
 import Vuetify from "vuetify/lib";
+
+import MainLayout from "./MainLayout.vue";
 
 describe("@layouts/main.vue", () => {
   it("renders its content", () => {
